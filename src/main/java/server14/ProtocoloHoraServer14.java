@@ -4,7 +4,7 @@ import servidor12.ProtocoloHoraServer12;
 import servidor13.ThreadTCPconection13;
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 
-public class ProtocoloHoraServer14 extends  ProtocoloHoraServer12{
+public class ProtocoloHoraServer14 extends ProtocoloHoraServer12 {
 
 	public ProtocoloHoraServer14(int puerto) {
 		super(puerto);
@@ -31,6 +31,7 @@ public class ProtocoloHoraServer14 extends  ProtocoloHoraServer12{
 			break;
 
 		case 1:
+
 			System.out.println(" Esperando clientes ... ");
 			try {
 				tcp.contestarcliente();
@@ -38,8 +39,9 @@ public class ProtocoloHoraServer14 extends  ProtocoloHoraServer12{
 				// printamos posibles excepciones
 				e.printStackTrace();
 			}
+
 			TCPconection copia2 = new TCPconection(tcp);
-			(new Thread((new ThreadTCPconection13(copia2)))).start();
+			(new Thread((new ThreadTCPconection14(copia2)))).start();
 			etapa = 1;
 			break;
 
