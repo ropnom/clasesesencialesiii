@@ -1,6 +1,6 @@
 package edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii;
 
-import servidor.fechas;
+import servidor12.fechas;
 
 public class ThreadTCPconection implements Runnable {
 

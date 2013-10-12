@@ -1,7 +1,6 @@
 package edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -103,21 +102,25 @@ public class TCPconection {
 		
 		try {
 			//ponemos el socket del server en espera y acepta las entradas
-			socketserver = new ServerSocket(puerto);
-			socketcliente = socketserver.accept();
-			socketserver.setReuseAddress(true);
-			//socketserver.bind(new InetSocketAddress(51000));
-			//aceptamos el flujo entrante y saliente de datos
-			out = new PrintWriter(socketcliente.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(socketcliente.getInputStream()));
-			System.out.println("Recepcion de Cliente:");
-			System.out.println(socketcliente);
-		} catch (IOException e) {
+			socketserver = new ServerSocket(puerto);		
+			contestarcliente();
+		} catch (Exception e) {
 			//printamos posibles excepciones
 			e.printStackTrace();
 		}
 	}
 
+	public void contestarcliente() throws Exception
+	{
+		socketcliente = socketserver.accept();
+		socketserver.setReuseAddress(true);
+		//socketserver.bind(new InetSocketAddress(51000));
+		//aceptamos el flujo entrante y saliente de datos
+		out = new PrintWriter(socketcliente.getOutputStream(), true);
+		in = new BufferedReader(new InputStreamReader(socketcliente.getInputStream()));
+		System.out.println("Recepcion de Cliente:");
+		System.out.println(socketcliente);
+	}
 	public String Read() {
 		// realizamso una lectura del socket
 		String line = "null";

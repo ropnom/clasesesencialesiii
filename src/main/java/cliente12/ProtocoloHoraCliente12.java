@@ -1,18 +1,26 @@
-package servidor;
+package cliente12;
+
+import java.net.InetAddress;
 
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.UDPconection;
 
-public class ProtocoloHoraServer12 {
+public class ProtocoloHoraCliente12 {
 
 	TCPconection tcp = null;
 	UDPconection udp = null;
 	// udp conecction
 	int etapa = 0;
 	int puerto = 0;
+	InetAddress ip = null;
 
-	public ProtocoloHoraServer12(int puerto) {
+	public ProtocoloHoraCliente12(String sip, int puerto) {
 
+		try{
+		this.ip = InetAddress.getByName(sip);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.puerto = puerto;
 	}
 
@@ -25,21 +33,25 @@ public class ProtocoloHoraServer12 {
 		switch (etapa) {
 
 		case 0:
-			System.out.println("Iniciando Servidor TCP");
-			tcp = new TCPconection(puerto);
-			System.out.println(" Esperando clientes ... ");
+			System.out.println("Iniciando Cliente TCP");
+			tcp = new TCPconection(ip,puerto);			
 			tcp.ArrancarServer();
+			System.out.println("Realizamos peticion de Cliente:");
+			String t = "--¿Que hora es?---";
+			System.out.println(t);
+			tcp.Write(t);
 			etapa = 1;
 			break;
 
-		case 1:			
-			String mensaje = fechas.EnviarFecha12();
-			tcp.Write(mensaje);			
+		case 1:
+			System.out.println("--Contestacion--");
+			System.out.println("Servidor:" +tcp.Read());			
 			etapa = 2;
+			
 			break;
 
 		case 2:
-			System.out.println("Cerrar socket server");
+			System.out.println("Cerrar socket cliente");
 			tcp.close();
 			etapa = 1;
 			return (-1);
@@ -63,21 +75,27 @@ public class ProtocoloHoraServer12 {
 		switch (etapa) {
 
 		case 0:
-			System.out.println("Iniciando Servidor UDP");
-			udp = new UDPconection(puerto+1);
-			System.out.println(" Esperando clientes ... ");
-			udp.ArrancarServer();
+			System.out.println("Iniciando Cliente UDP");
+			udp = new UDPconection(ip,puerto+1);	
+			System.out.println("1");
+			udp.ArrancarCliente();
+			System.out.println("2");
+			System.out.println("Realizamos peticion de Cliente:");
+			String t = "--¿Que hora es?---";
+			System.out.println(t);
+			udp.writeLineClient(t);
 			etapa = 1;
 			break;
 
-		case 1:			
-			String mensaje = fechas.EnviarFecha12();
-			udp.writeLineServer(mensaje);			
+		case 1:
+			System.out.println("--Contestacion--");
+			System.out.println("Servidor:" +udp.readLine());			
 			etapa = 2;
+			
 			break;
 
 		case 2:
-			System.out.println("Cerrar socket server");
+			System.out.println("Cerrar socket cliente");
 			udp.close();
 			etapa = 1;
 			return (-1);
@@ -91,5 +109,6 @@ public class ProtocoloHoraServer12 {
 
 		return (0);
 	}
+
 
 }

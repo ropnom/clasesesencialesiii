@@ -1,15 +1,17 @@
-package servidor;
+package cliente12;
 
 import java.util.Scanner;
 
-public class server12 {
+public class cliente12 {
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
 		System.out.println("*******************");
-		System.out.println(" Servidor iniciado ");
+		System.out.println(" Programa cliente ");
 		System.out.println("*******************");
-		ProtocoloHoraServer12 p = new ProtocoloHoraServer12(52000);
+		ProtocoloHoraCliente12 a = new ProtocoloHoraCliente12("localhost",
+				52000);
 
 		System.out.println("Introduzca el protocolo que desea:");
 		System.out.println("--- TCP pulse '0' ");
@@ -22,30 +24,26 @@ public class server12 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		if (protocolo == 0) {
 			System.out.println("-------------------");
 			System.out.println(" PROTOCOLO TPC  ");
 			System.out.println("-------------------");
-
-			// arrancamos el modo escucha del servidor
-			while (p.IniciarTCP() == 0) {
-				// esto es unbucle infinito
-				// cuando acaba el protocolo
-				// el valor retornado cambia a -1
+			while (a.IniciarTCP() == 0) {
+				// While infito realiza peticion e imprime resolucion
+				// finalizado salta y finaliza
 			}
 		} else {
 			System.out.println("-------------------");
 			System.out.println(" PROTOCOLO UDP  ");
 			System.out.println("-------------------");
-			while (p.IniciarUDP() == 0) {
-				// esto es unbucle infinito
-				// cuando acaba el protocolo
-				// el valor retornado cambia a -1
+
+			while (a.IniciarUDP() == 0) {
+				// While infito realiza peticion e imprime resolucion
+				// finalizado salta y finaliza
 			}
 		}
 		System.out.println("*******************");
-		System.out.println(" Servidor cerrado ");
+		System.out.println(" Cliente cerrado ");
 		System.out.println("*******************");
 
 	}
