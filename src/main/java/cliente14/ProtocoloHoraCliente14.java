@@ -1,30 +1,22 @@
 package cliente14;
 
-import java.net.InetAddress;
 import java.util.Scanner;
 
+import cliente12.ProtocoloHoraCliente12;
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
-import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.UDPconection;
 
-public class ProtocoloHoraCliente14 {
+public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 
-	TCPconection tcp = null;
-	UDPconection udp = null;
-	// udp conecction
-	int etapa = 0;
-	int puerto = 0;
-	InetAddress ip = null;
+	
+
+	
 
 	public ProtocoloHoraCliente14(String sip, int puerto) {
-
-		try {
-			this.ip = InetAddress.getByName(sip);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		this.puerto = puerto;
+		super(sip, puerto);
+		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public int IniciarTCP() {
 		// modelamos el protocolos en 3 estados
 		// estado 0 arranque y espera
@@ -35,6 +27,7 @@ public class ProtocoloHoraCliente14 {
 
 		case 0:
 			System.out.println("Iniciando Cliente TCP");
+			try {
 			tcp = new TCPconection(ip, puerto);
 			tcp.ArrancarServer();
 			System.out.println("Realizamos peticion de Cliente:");
@@ -67,6 +60,16 @@ public class ProtocoloHoraCliente14 {
 			System.out.println(t);
 			tcp.Write(Integer.toString(t));
 			etapa = 1;
+			} catch (Exception e) {
+				// printamos lasposibles excepciones
+				e.printStackTrace();
+				System.out.println(" Error en arranque del Socket -- FAIL ");
+				intentos++;
+				if (intentos == 2) {
+					System.out.println("Cancelacion de conexion");
+					return (-1);
+				}				
+			}
 			break;
 
 		case 1:

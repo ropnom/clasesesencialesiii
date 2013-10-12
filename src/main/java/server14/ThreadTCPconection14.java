@@ -44,7 +44,7 @@ public class ThreadTCPconection14 implements Runnable {
 
 		case 2:
 			System.out.println("Cerrar socket server");
-			tcp.close();
+			tcp.closecliente();
 			etapa = 1;
 
 			// break;

@@ -6,11 +6,11 @@ import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.fechas;
 
 public class ProtocoloHoraServer12 {
 
-	TCPconection tcp = null;
-	UDPconection udp = null;
-	// udp conecction
-	int etapa = 0;
-	int puerto = 0;
+	protected TCPconection tcp = null;
+	protected UDPconection udp = null;
+	
+	protected int etapa = 0;
+	protected int puerto = 0;
 
 	public ProtocoloHoraServer12(int puerto) {
 

@@ -1,6 +1,7 @@
 package edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -19,7 +20,7 @@ public class TCPconection {
 	int puerto;
 
 	// constructor del socket del cliente
-	public TCPconection(InetAddress ip, int puerto) {
+	public TCPconection(InetAddress ip, int puerto) throws Exception {
 
 		this.ip = ip;
 		this.puerto = puerto;
@@ -75,9 +76,9 @@ public class TCPconection {
 
 	}
 
-	protected void ArrancarCliente() {
+	protected void ArrancarCliente() throws Exception {
 
-		try {
+		
 			// iniciamos el socket
 			socketcliente = new Socket(ip, puerto);
 			// printamos salida
@@ -90,11 +91,7 @@ public class TCPconection {
 
 			System.out.println(" Cliente inicializado correctamente -- OK ");
 
-		} catch (Exception e) {
-			// printamos lasposibles excepciones
-			e.printStackTrace();
-			System.out.println(" Error en arranque del Socket -- FAIL ");
-		}
+		
 
 	}
 

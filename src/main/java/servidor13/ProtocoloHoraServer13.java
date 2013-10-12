@@ -1,19 +1,19 @@
 package servidor13;
 
+import servidor12.ProtocoloHoraServer12;
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 
-public class ProtocoloHoraServer13 {
+public class ProtocoloHoraServer13 extends ProtocoloHoraServer12{
 
-	TCPconection tcp = null;
-	int etapa = 0;
-	int puerto = 0;
+	
 
 	public ProtocoloHoraServer13(int puerto) {
-
-		this.puerto = puerto;
+		super(puerto);
+		// TODO Auto-generated constructor stub
 	}
 
-	protected int IniciarTCP() {
+	@Override
+	public int IniciarTCP() {
 		// modelamos el protocolos en 3 estados
 		// estado 0 arranque y espera
 		// estado 1 contestacion
