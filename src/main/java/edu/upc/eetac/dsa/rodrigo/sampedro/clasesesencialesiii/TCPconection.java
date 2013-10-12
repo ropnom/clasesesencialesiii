@@ -113,7 +113,7 @@ public class TCPconection {
 	public void contestarcliente() throws Exception
 	{
 		socketcliente = socketserver.accept();
-		socketserver.setReuseAddress(true);
+		//socketserver.setReuseAddress(true);
 		//socketserver.bind(new InetSocketAddress(51000));
 		//aceptamos el flujo entrante y saliente de datos
 		out = new PrintWriter(socketcliente.getOutputStream(), true);
@@ -152,24 +152,40 @@ public class TCPconection {
 
 	public void close() {
 		// cerramos el socket
-
+		closecliente();
+		closeserver();
+		
+	}
+	public void closecliente()
+	{
 		try {
-			if (in != null)
-				in.close();
+			
 			if (out != null)
 				out.close();
 			if (socketcliente != null)
-				socketcliente.close();
-			if (socketserver != null)
-				socketserver.close();
-			if (instrem != null)
-				instrem.close();
-
+				socketcliente.close();		
+			
 		} catch (Exception e) {
 			// printamos excepciones
 			e.printStackTrace();
 			System.out.println(" Error en cierre de Sockets -- FAIL ");
 		}
 	}
+	public void closeserver()
+	{
+		try {
+			if (in != null)
+				in.close();			
+			if (socketserver != null)
+				socketserver.close();
+			if (instrem != null)
+				instrem.close();
+		} catch (Exception e) {
+			// printamos excepciones
+			e.printStackTrace();
+			System.out.println(" Error en cierre de Sockets -- FAIL ");
+		}
+	}
+	
 
 }

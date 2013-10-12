@@ -31,8 +31,8 @@ public class ThreadTCPconection13 implements Runnable {
 			case 2:
 				System.out.println("Cerrar socket server");
 				encontrado = false;
-				tcp.close();				
-				etapa = 1;
+				tcp.closecliente();;				
+				etapa = 1;				
 				break;
 
 			default:
@@ -42,8 +42,7 @@ public class ThreadTCPconection13 implements Runnable {
 				break;
 			}
 		}
-		System.out.println("Thread ha acabado");
-		return;
+		System.out.println("Thread ha acabado");		
 
 	}
 

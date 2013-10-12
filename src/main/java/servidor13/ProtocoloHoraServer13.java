@@ -22,16 +22,20 @@ public class ProtocoloHoraServer13 {
 		switch (etapa) {
 
 		case 0:
+			//arancamos el puerto de escucha y a la 1º llegada lo enviamos al thread
 			System.out.println("Iniciando Servidor TCP");
 			tcp = new TCPconection(puerto);
 			System.out.println(" Esperando clientes ... ");
 			tcp.ArrancarServer();
-			TCPconection copia1 = new TCPconection(tcp);			
+			//utilizamos un contructor copia para el tcp.
+			TCPconection copia1 = new TCPconection(tcp);	
+			//TCPconection copia1 = tcp;
 			(new Thread((new ThreadTCPconection13(copia1)))).start();
 			etapa = 1;			
 			break;		
 
 		case 1:
+			//seguimos esperando los clientes posibles
 			System.out.println(" Esperando clientes ... ");
 			try{
 				tcp.contestarcliente();
@@ -40,13 +44,14 @@ public class ProtocoloHoraServer13 {
 				e.printStackTrace();
 			}
 			TCPconection copia2 = new TCPconection(tcp);			
+			//TCPconection copia2 = tcp;
 			(new Thread((new ThreadTCPconection13(copia2)))).start();
 			etapa = 1;
 			break;
 
 		default:
 			System.out.println("Error en el proceso, Protocolo reiniciado.");
-			etapa = 1;
+			etapa = 0;
 			break;
 		}
 
