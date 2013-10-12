@@ -1,7 +1,6 @@
 package servidor13;
 
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
-import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.ThreadTCPconection;
 
 public class ProtocoloHoraServer13 {
 
@@ -28,20 +27,20 @@ public class ProtocoloHoraServer13 {
 			System.out.println(" Esperando clientes ... ");
 			tcp.ArrancarServer();
 			TCPconection copia1 = new TCPconection(tcp);			
-			(new Thread((new ThreadTCPconection(copia1)))).start();
+			(new Thread((new ThreadTCPconection13(copia1)))).start();
 			etapa = 1;			
 			break;		
 
 		case 1:
 			System.out.println(" Esperando clientes ... ");
 			try{
-			tcp.contestarcliente();
+				tcp.contestarcliente();
 			}catch (Exception e) {
 				// printamos posibles excepciones
 				e.printStackTrace();
 			}
 			TCPconection copia2 = new TCPconection(tcp);			
-			(new Thread((new ThreadTCPconection(copia2)))).start();
+			(new Thread((new ThreadTCPconection13(copia2)))).start();
 			etapa = 1;
 			break;
 
