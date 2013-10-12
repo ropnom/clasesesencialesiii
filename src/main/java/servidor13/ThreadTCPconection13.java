@@ -5,8 +5,8 @@ import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.fechas;
 
 public class ThreadTCPconection13 implements Runnable {
 
-	TCPconection tcp = null;
-	int etapa = 1;
+	protected TCPconection tcp = null;
+	protected  int etapa = 1;
 
 	public ThreadTCPconection13(TCPconection s) {
 		this.tcp = s;

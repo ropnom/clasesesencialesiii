@@ -7,10 +7,6 @@ import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 
 public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 
-	
-
-	
-
 	public ProtocoloHoraCliente14(String sip, int puerto) {
 		super(sip, puerto);
 		// TODO Auto-generated constructor stub
@@ -31,7 +27,6 @@ public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 			tcp = new TCPconection(ip, puerto);
 			tcp.ArrancarServer();
 			System.out.println("Realizamos peticion de Cliente:");
-
 			boolean encontrado = true;
 			int t = -1;
 			while (encontrado) {
@@ -56,7 +51,7 @@ public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 				} else
 					encontrado = true;
 			}
-
+			//enviamos el codigo elegido
 			System.out.println(t);
 			tcp.Write(Integer.toString(t));
 			etapa = 1;
@@ -84,7 +79,7 @@ public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 			tcp.close();
 			etapa = 1;
 			return (-1);
-			// break;
+			//break;
 
 		default:
 			System.out.println("Error en el proceso, Protocolo reiniciado.");
