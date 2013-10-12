@@ -1,7 +1,6 @@
 package edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -24,11 +23,11 @@ public class TCPconection {
 
 		this.ip = ip;
 		this.puerto = puerto;
-		// arancamos el servidor una vez definido		
+		// arancamos el servidor una vez definido
 		ArrancarCliente();
 	}
-	
-	//constructor copia
+
+	// constructor copia
 	public TCPconection(TCPconection s) {
 
 		this.ip = s.getIp();
@@ -38,8 +37,8 @@ public class TCPconection {
 		this.out = s.getOut();
 		this.instrem = s.getInstrem();
 		this.in = s.getIn();
-		
-	}	
+
+	}
 
 	public Socket getSocketcliente() {
 		return socketcliente;
@@ -76,48 +75,45 @@ public class TCPconection {
 
 	}
 
-	protected void ArrancarCliente() throws Exception {
+	public void ArrancarCliente() throws Exception {
 
-		
-			// iniciamos el socket
-			socketcliente = new Socket(ip, puerto);
-			// printamos salida
-			System.out.println(socketcliente);
-			// creamos el buffer salida
-			out = new PrintWriter(socketcliente.getOutputStream(), true);
-			// creamos el input stream y su buffer asociado
-			instrem = new InputStreamReader(socketcliente.getInputStream());
-			in = new BufferedReader(instrem);
-
-			System.out.println(" Cliente inicializado correctamente -- OK ");
-
-		
+		// iniciamos el socket
+		socketcliente = new Socket(ip, puerto);
+		// printamos salida
+		System.out.println(socketcliente);
+		// creamos el buffer salida
+		out = new PrintWriter(socketcliente.getOutputStream(), true);
+		// creamos el input stream y su buffer asociado
+		instrem = new InputStreamReader(socketcliente.getInputStream());
+		in = new BufferedReader(instrem);
+		System.out.println(" Cliente inicializado correctamente -- OK ");
 
 	}
 
 	public void ArrancarServer() {
-		
+
 		try {
-			//ponemos el socket del server en espera y acepta las entradas
-			socketserver = new ServerSocket(puerto);		
+			// ponemos el socket del server en espera y acepta las entradas
+			socketserver = new ServerSocket(puerto);
 			contestarcliente();
 		} catch (Exception e) {
-			//printamos posibles excepciones
+			// printamos posibles excepciones
 			e.printStackTrace();
 		}
 	}
 
-	public void contestarcliente() throws Exception
-	{
+	public void contestarcliente() throws Exception {
 		socketcliente = socketserver.accept();
-		//socketserver.setReuseAddress(true);
-		//socketserver.bind(new InetSocketAddress(51000));
-		//aceptamos el flujo entrante y saliente de datos
+		// socketserver.setReuseAddress(true);
+		// socketserver.bind(new InetSocketAddress(51000));
+		// aceptamos el flujo entrante y saliente de datos
 		out = new PrintWriter(socketcliente.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(socketcliente.getInputStream()));
+		in = new BufferedReader(new InputStreamReader(
+				socketcliente.getInputStream()));
 		System.out.println("Recepcion de Cliente:");
 		System.out.println(socketcliente);
 	}
+
 	public String Read() {
 		// realizamso una lectura del socket
 		String line = "null";
@@ -151,28 +147,28 @@ public class TCPconection {
 		// cerramos el socket
 		closecliente();
 		closeserver();
-		
+
 	}
-	public void closecliente()
-	{
+
+	public void closecliente() {
 		try {
-			
+
 			if (out != null)
 				out.close();
 			if (socketcliente != null)
-				socketcliente.close();		
-			
+				socketcliente.close();
+
 		} catch (Exception e) {
 			// printamos excepciones
 			e.printStackTrace();
 			System.out.println(" Error en cierre de Sockets -- FAIL ");
 		}
 	}
-	public void closeserver()
-	{
+
+	public void closeserver() {
 		try {
 			if (in != null)
-				in.close();			
+				in.close();
 			if (socketserver != null)
 				socketserver.close();
 			if (instrem != null)
@@ -183,6 +179,5 @@ public class TCPconection {
 			System.out.println(" Error en cierre de Sockets -- FAIL ");
 		}
 	}
-	
 
 }

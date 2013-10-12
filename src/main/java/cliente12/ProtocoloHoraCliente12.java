@@ -36,8 +36,7 @@ public class ProtocoloHoraCliente12 {
 		case 0:
 			System.out.println("Iniciando Cliente TCP");
 			try {
-				tcp = new TCPconection(ip, puerto);
-				tcp.ArrancarServer();
+				tcp = new TCPconection(ip, puerto);							
 				System.out.println("Realizamos peticion de Cliente:");
 				String t = "--¿Que hora es?---";
 				System.out.println(t);
@@ -89,7 +88,7 @@ public class ProtocoloHoraCliente12 {
 		case 0:
 			System.out.println("Iniciando Cliente UDP");
 			udp = new UDPconection(ip, puerto + 1);
-			udp.ArrancarCliente();
+			//udp.ArrancarCliente();
 			System.out.println("Realizamos peticion de Cliente:");
 			String t = "--¿Que hora es?---";
 			System.out.println(t);

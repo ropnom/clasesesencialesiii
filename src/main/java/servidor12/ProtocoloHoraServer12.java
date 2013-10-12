@@ -35,6 +35,7 @@ public class ProtocoloHoraServer12 {
 
 		case 1:			
 			String mensaje = fechas.EnviarFecha12();
+			System.out.println(mensaje);
 			tcp.Write(mensaje);			
 			etapa = 2;
 			break;
@@ -73,6 +74,7 @@ public class ProtocoloHoraServer12 {
 
 		case 1:			
 			String mensaje = fechas.EnviarFecha12();
+			System.out.println(mensaje);
 			udp.writeLineServer(mensaje);			
 			etapa = 2;
 			break;

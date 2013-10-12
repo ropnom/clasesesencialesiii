@@ -24,8 +24,7 @@ public class ProtocoloHoraCliente14 extends ProtocoloHoraCliente12{
 		case 0:
 			System.out.println("Iniciando Cliente TCP");
 			try {
-			tcp = new TCPconection(ip, puerto);
-			tcp.ArrancarServer();
+			tcp = new TCPconection(ip, puerto);			
 			System.out.println("Realizamos peticion de Cliente:");
 			boolean encontrado = true;
 			int t = -1;
