@@ -116,7 +116,7 @@ public class TCPconection {
 
 	public String Read() {
 		// realizamso una lectura del socket
-		String line = "null";
+		String line = null;
 
 		try {
 			// leemos el buffer de entrada

@@ -1,7 +1,6 @@
 package server14;
 
 import servidor12.ProtocoloHoraServer12;
-import servidor13.ThreadTCPconection13;
 import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 
 public class ProtocoloHoraServer14 extends ProtocoloHoraServer12 {

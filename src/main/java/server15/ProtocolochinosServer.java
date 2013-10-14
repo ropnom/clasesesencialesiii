@@ -27,7 +27,9 @@ public class ProtocolochinosServer {
 			System.out.println(" Esperando jugadores ... ");
 			tcp.ArrancarServer();
 			TCPconection copia1 = new TCPconection(tcp);
-			(new Thread(new ThreadPartidas(copia1))).start();
+			//(new Thread((new ThreadPartidas(copia1)))).start();	
+			(new ThreadPartidas(copia1)).start();
+			ThreadPartidas.Inicializar();
 			etapa = 1;
 			break;
 

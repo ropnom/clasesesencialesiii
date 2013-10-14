@@ -27,9 +27,9 @@ public class Jugador extends gamer {
 		String message = "PLAY:" + identificador;
 		this.Write(message);
 	}
-	protected void Mybet(int bajomano, int total)
-	{
-		String message = "MY BET:"+bajomano+":"+total;
+
+	protected void Mybet(int bajomano, int total) {
+		String message = "MY BET:" + bajomano + ":" + total;
 		this.Write(message);
 	}
 
@@ -43,7 +43,6 @@ public class Jugador extends gamer {
 		// estado 0 arranque y espera
 		// estado 1 contestacion
 		// estado 2 cerrar sockets y cerrar
-		
 
 		switch (etapa) {
 
@@ -68,6 +67,7 @@ public class Jugador extends gamer {
 
 		case 1:
 			System.out.println("--Contestacion--");
+			System.out.println("Aqui llega cliente 2");
 			String recibido = tcp.Read();
 			try {
 				int b = Integer.parseInt(recibido);
@@ -87,7 +87,7 @@ public class Jugador extends gamer {
 			} catch (Exception e) {
 				System.out.println("Servidor:" + recibido);
 
-				if (recibido == "WAIT") {
+				if (recibido.equals("WAIT")) {
 					etapa = 2;
 				} else {
 					recibido = tcp.Read();
@@ -100,84 +100,79 @@ public class Jugador extends gamer {
 
 		case 2:
 			String mensaje = tcp.Read();
-			System.out.println("Servidor:" + mensaje);
-			if(mensaje=="YOUR BET")
-			{
-				etapa = 3;
-			}
-			else
-			{
-				etapa = 2;
+			if (mensaje!=null) {
+				System.out.println("Servidor:" + mensaje);
+				String yourbet = "YOUR BET";
+				if (mensaje.equals(yourbet)) {
+					etapa = 3;
+				} else {
+					etapa = 2;
+				}
 			}
 
 			break;
-			
+
 		case 3:
 			System.out.println("-- Elige tu estrategia --");
 			System.out.println("Introduce el numero de monas de tu mano:");
 			int bajomano = -1;
-			while(bajomano == -1)
-			try{
-			Scanner k = new Scanner(System.in);
-			bajomano = k.nextInt();
-			if(bajomano<0 || bajomano >30)
-			{
-				throw new Exception("El valor introducido no es valido [0-30]");
-			}			
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				System.out.println(" Vuelva a introducir el valor elegido");
-				bajomano = -1;
-			}
+			while (bajomano == -1)
+				try {
+					Scanner k = new Scanner(System.in);
+					bajomano = k.nextInt();
+					if (bajomano < 0 || bajomano > 30) {
+						throw new Exception(
+								"El valor introducido no es valido [0-30]");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println(" Vuelva a introducir el valor elegido");
+					bajomano = -1;
+				}
 			int total = -1;
-			while(total == -1)
-			try{
-			Scanner n = new Scanner(System.in);
-			bajomano = n.nextInt();
-			if(total<0 || total >60)
-			{
-				throw new Exception("El valor introducido no es valido [0-60]");
-			}			
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				System.out.println(" Vuelva a introducir el valor elegido");
-				total = -1;
-			}
-			Mybet(bajomano,total);
+			while (total == -1)
+				try {
+					Scanner n = new Scanner(System.in);
+					bajomano = n.nextInt();
+					if (total < 0 || total > 60) {
+						throw new Exception(
+								"El valor introducido no es valido [0-60]");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println(" Vuelva a introducir el valor elegido");
+					total = -1;
+				}
+			Mybet(bajomano, total);
 			String mensaje2 = tcp.Read();
 			System.out.println("Servidor:" + mensaje2);
-			etapa = 5;			
+			etapa = 5;
 			break;
-			
+
 		case 4:
 			String mensaje3 = tcp.Read();
-			System.out.println("Servidor:" + mensaje3);
-			if(mensaje3=="YOUR BET")
-			{
-				etapa = 3;
-			}
-			else
-			{
-				etapa = 4;
+			if (mensaje3 !=null) {
+				System.out.println("Servidor:" + mensaje3);
+				if (mensaje3.equals("YOUR BET")) {
+					etapa = 3;
+				} else {
+					etapa = 4;
+				}
 			}
 
 			break;
-			
+
 		case 5:
 			String mensaje4 = tcp.Read();
-			System.out.println("Servidor:" + mensaje4);
-			if(mensaje4.contains("WINNER")||mensaje4.contains("NONE"))
-			{
-				etapa = 6;
-			}
-			else
-			{
-				etapa = 5;
+			if (mensaje4 != null) {
+				System.out.println("Servidor:" + mensaje4);
+				if (mensaje4.contains("WINNER") || mensaje4.contains("NONE")) {
+					etapa = 6;
+				} else {
+					etapa = 5;
+				}
 			}
 			break;
-			
 
 		case 6:
 			System.out.println("Cerrar socket cliente");

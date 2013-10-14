@@ -15,12 +15,16 @@ public class Partida extends Thread{
 		identificador = i;
 		contador = 0;
 		lista = new gamer[2];
+		for(int k=0;k<2;k++)
+		{
+			lista[k] = new gamer("vacio");
+		}
 		sokets = new TCPconection[2];
 		etapa = 1;
 	}
 	
 	protected void Waiting(TCPconection s)
-	{
+	{		
 		Write("WAIT", s );
 	}
 	protected void Versus()
@@ -61,8 +65,8 @@ public class Partida extends Thread{
 		Write(message, sokets[1]);
 	}	
 	protected void Write(String message,TCPconection s )
-	{
-		String mensajeserver = "Send--> PARTIDA {"+identificador+"} -"+lista[0].identificador+"-"+lista[1].getIdentificador()+"\n"+message;
+	{		
+		String mensajeserver = "Send--> PARTIDA {"+identificador+"} -"+lista[0].identificador+"-"+lista[1].getIdentificador()+"\n    -->"+message;
 		System.out.println(mensajeserver);
 		s.Write(message);
 	}
@@ -80,21 +84,27 @@ public class Partida extends Thread{
 	}
 	public synchronized void IntroducirJugador(gamer a,TCPconection sa)
 	{
-		//introducimos el jugador
-		lista[contador] = a;
+		//introducimos el jugador		
+		
+		
+		lista[contador] = a;		
 		sokets[contador] = sa;
 		contador++;
 		//enviamos mensajes al jugador
+		System.out.println("num de jugador es:"+contador);
 		if(contador==1)
 		{
 			System.out.println("Iniciando Partida {"+identificador+"} -- Waiting");
 			//mensaje al 1º jugador
+			
 			this.Waiting(sokets[contador-1]);
 		}
 		else
 		{
+			System.out.println("Aqui llega el 2º jugador");
 			System.out.println("Iniciando Partida {"+identificador+"} -- OK");
 			//mensaje al segundo jugador
+			System.out.println("Aqui llega 4");
 			this.Versus();
 			this.YourBet(sokets[0]);
 			this.WaitBet(sokets[1]);
@@ -127,7 +137,7 @@ public class Partida extends Thread{
 		Recibe(mensaje, i);
 		try {
 			String[] protocolo = mensaje.split(":");
-			if((protocolo[0]!="MY BET") && (protocolo.length != 3))
+			if(!(protocolo[0].equals("MY BET")) && (protocolo.length != 3))
 			{
 				//lanzamos una excepcionde protocolo
 				throw new Exception("La longitud del protocolo es " + protocolo.length);					
