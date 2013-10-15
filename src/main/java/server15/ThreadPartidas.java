@@ -5,7 +5,7 @@ import edu.upc.eetac.dsa.rodrigo.sampedro.clasesesencialesiii.TCPconection;
 public class ThreadPartidas extends Thread{
 
 	//implements Runnable
-	protected static int numjugadores = 0;	
+	protected static int numjugadores = -1;	
 	//ponemso unmaximo de 5 partidas
 	protected static Partida[] partidas = new Partida[5];
 	protected TCPconection tcp = null;
@@ -108,8 +108,7 @@ public class ThreadPartidas extends Thread{
 						break;
 
 					case 2:
-						System.out.println("Cerrar socket cliente");
-						//tcp.closecliente();
+						System.out.println("Cerrar socket cliente");						
 						encontrado = false;
 						etapa = 1;
 						break;

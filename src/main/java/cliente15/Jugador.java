@@ -114,7 +114,7 @@ public class Jugador extends gamer {
 
 		case 3:
 			System.out.println("-- Elige tu estrategia --");
-			System.out.println("Introduce el numero de monas de tu mano:");
+			System.out.println("Introduce el numero de monedas de tu mano:");
 			int bajomano = -1;
 			while (bajomano == -1)
 				try {
@@ -132,8 +132,9 @@ public class Jugador extends gamer {
 			int total = -1;
 			while (total == -1)
 				try {
+					System.out.println("Introduce el numero de monedas Totales del juego:");
 					Scanner n = new Scanner(System.in);
-					bajomano = n.nextInt();
+					total = n.nextInt();
 					if (total < 0 || total > 60) {
 						throw new Exception(
 								"El valor introducido no es valido [0-60]");
